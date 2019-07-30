@@ -10,10 +10,41 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
     }
+    
+    // MARK: - UI Actions
+    @IBAction func storeAction(_ sender: Any) {
+        print("👉 begin store action")
+        
+        let dataObject = DataObject()
+        dataObject.accessCode = "XR3"
+        dataObject.name = "WebLaudos Profile"
+        
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(dataObject) {
+            let defaults = UserDefaults.standard
+            defaults.set(encoded, forKey: "dataObjectKey")
+        }
+        
+        print("🖐 end store action")
+    }
+    
+    @IBAction func retrieveAction(_ sender: Any) {
+        print("👉 begin retirve action")
+        let defaults = UserDefaults.standard
+        if let savedObject = defaults.object(forKey: "dataObjectKey") as? Data {
+            let decoder = JSONDecoder()
+            if let mySavedObject = try? decoder.decode(DataObject.self, from: savedObject) {
+                print(" this is the saved object: \(mySavedObject.name)")
+            }
+        }
+        print("🖐 end retireve action")
+    }
+    
 
 
 }
