@@ -20,9 +20,19 @@ class ViewController: UIViewController {
     @IBAction func storeAction(_ sender: Any) {
         print("👉 begin store action")
         
+        // -----------------------------------------
+        let level = ChildLevel1()
+        level.name = "levelName"
+        level.profile = "LV1"
+        
         let dataObject = DataObject()
         dataObject.accessCode = "XR3"
         dataObject.name = "WebLaudos Profile"
+        dataObject.levels.append(level)
+        
+        
+        // -----------------------------------------
+
         
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(dataObject) {
